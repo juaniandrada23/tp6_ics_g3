@@ -1,7 +1,27 @@
+-- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
+--
+-- Host: 127.0.0.1    Database: tp6_ics
+-- ------------------------------------------------------
+-- Server version	8.0.39
 
--- Database: tp6_ics
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `cotizaciones`
+--
 
 DROP TABLE IF EXISTS `cotizaciones`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cotizaciones` (
   `id` int NOT NULL AUTO_INCREMENT,
   `dador_id` int DEFAULT NULL,
@@ -125,7 +145,7 @@ CREATE TABLE `pagos` (
   CONSTRAINT `fk_forma_pago` FOREIGN KEY (`forma_pago_id`) REFERENCES `formaspago` (`id`),
   CONSTRAINT `fk_tarjeta_pago` FOREIGN KEY (`tarjeta_id`) REFERENCES `tarjetas` (`id`) ON DELETE SET NULL,
   CONSTRAINT `Pagos_ibfk_1` FOREIGN KEY (`cotizacion_id`) REFERENCES `cotizaciones` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -158,7 +178,7 @@ CREATE TABLE `tarjetas` (
   PRIMARY KEY (`id`),
   KEY `fk_dador_tarjetas` (`dador_id`),
   CONSTRAINT `fk_dador_tarjetas` FOREIGN KEY (`dador_id`) REFERENCES `dadores` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -167,7 +187,7 @@ CREATE TABLE `tarjetas` (
 
 LOCK TABLES `tarjetas` WRITE;
 /*!40000 ALTER TABLE `tarjetas` DISABLE KEYS */;
-INSERT INTO `tarjetas` VALUES (1,'4111111111111111','123','Juan Perez','12/2025','Debito',14000.00,1,'DNI','12345678'),(3,'3742101010101010','1234','TalleresPechoFrio','10/2024','Debito',11000.00,1,'DNI','40300100');
+INSERT INTO `tarjetas` VALUES (1,'4111111111111111','123','Juan Perez','12/2025','Debito',24000.00,1,'DNI','12345678'),(3,'3742101010101010','1234','TalleresPechoFrio','10/2024','Debito',11000.00,1,'DNI','40300100'),(5,'3742500020001000','123','Juani','09/2024','Debito',6000.00,2,'DNI','43200100'),(6,'2020101010109999','123','Juani','12/2024','Credito',10000.00,1,'DNI','43200199');
 /*!40000 ALTER TABLE `tarjetas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -236,4 +256,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-09-14 20:24:15
+-- Dump completed on 2024-09-15 19:19:43
