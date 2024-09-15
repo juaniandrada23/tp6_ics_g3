@@ -41,7 +41,7 @@ const InformacionTarjeta: React.FC<InformacionTarjetaProps> = ({
           name="tipo"
           value={tarjeta.tipo || ""}
           readOnly
-          className="block w-full p-2 rounded-lg bg-gray-100 border-2 border-jade-300"
+          className="block w-full p-2 rounded-lg border-2 border-jade-300"
         />
       </div>
 

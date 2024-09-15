@@ -32,9 +32,9 @@ const InterfazPago: React.FC = () => {
     dador_id: dador_id,
   });
   const [efectivo, setEfectivo] = useState<string>("");
-  const { loading, success, procesarPago } = usePago();
-  const { tarjetas, loading: tarjetasLoading, error: tarjetasError, fetchTarjetas } = useTarjetas(dador_id); 
-  
+  const { loading, procesarPago } = usePago(cotizacion.transportista_id);
+  const { tarjetas, loading: tarjetasLoading, error: tarjetasError, fetchTarjetas } = useTarjetas(dador_id);   
+
   const handleFormaPagoChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setFormaPagoSeleccionada(e.target.value);
     setError("");
@@ -82,15 +82,27 @@ const InterfazPago: React.FC = () => {
     e.preventDefault();
     setError("");
 
+    if (!formaPagoSeleccionada) {
+      setError("Debe seleccionar una forma de pago.");
+      return;
+    }
+
+    if (formaPagoSeleccionada === "Tarjeta" && (!tarjeta.numero_tarjeta || tarjeta.numero_tarjeta === "")) {
+      setError("Debe seleccionar una tarjeta.");
+      return;
+    }
+
     const importeCotizacion = cotizacion.importe ?? 0;
     const saldoTarjeta = tarjeta.saldo ?? "0";
 
-    if (formaPagoSeleccionada === "Tarjeta" && (tarjeta.tipo === "Debito" || tarjeta.tipo === "Credito") && saldoTarjeta < importeCotizacion) {
+    const saldoTarjetaNumerico = parseFloat(saldoTarjeta);
+    const importeCotizacionNumerico = parseFloat(importeCotizacion.toString());
+
+    if (formaPagoSeleccionada === "Tarjeta" && (tarjeta.tipo === "Debito" || tarjeta.tipo === "Credito") && saldoTarjetaNumerico < importeCotizacionNumerico) {
       setError("Saldo insuficiente en la tarjeta.");
       return;
     }
     
-
     if (
       (formaPagoSeleccionada === "Contado al retirar" || formaPagoSeleccionada === "Contado contra entrega") &&
       efectivo < importeCotizacion
@@ -132,7 +144,6 @@ const InterfazPago: React.FC = () => {
       setEfectivo(valor);
     }
   };
-  
 
   return (
     <div className="bg-jade-900 min-h-screen flex justify-center items-center p-4 sm:p-8">
@@ -190,9 +201,6 @@ const InterfazPago: React.FC = () => {
               <MdError className="text-xl"/>
               <span>{error}</span>
             </div>
-          )}
-          {success && (
-            <p className="text-green-500 mt-4 text-center">Pago realizado con éxito</p>
           )}
         </div>
       </div>

@@ -66,6 +66,14 @@ export const getTarjetasByDador = async (dador_id: number) => {
   return fetchAPI(`/tarjetas/${dador_id}`);
 };
 
+export const getCotizacionesByTransportistaLogueadoPendientes = async (id: number) => {
+  return fetchAPI(`/transportistas/logueado/pendientes/${id}`);
+};
+
+export const getCotizacionesByTransportistaLogueadoConfirmadas = async (id: number) => {
+  return fetchAPI(`/transportistas/logueado/confirmadas/${id}`);
+};
+
 export const createTarjeta = async (tarjetaData: Record<string, any>) => {
   return fetchAPI("/tarjetas/agregar", {
     method: "POST",

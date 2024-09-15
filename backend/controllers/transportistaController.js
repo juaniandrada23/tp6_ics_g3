@@ -17,4 +17,26 @@ const getTransportistas = (req, res) => {
   });
 };
 
-module.exports = { getTransportistas };
+const getMisCotizacionesPendientes = (req, res) => {
+  const { id } = req.params;
+  const query = `SELECT c.* FROM cotizaciones c INNER JOIN transportistas t ON t.id = c.transportista_id WHERE t.id = ? AND c.estado = 'Pendiente'`;
+  connection.query(query, [id], (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: "Error al obtener las cotizaciones del transportista logueado" });
+    }
+    res.json(results);
+  });
+};
+
+const getMisCotizacionesConfirmadas = (req, res) => {
+  const { id } = req.params;
+  const query = `SELECT c.* FROM cotizaciones c INNER JOIN transportistas t ON t.id = c.transportista_id WHERE t.id = ? AND c.estado = 'Confirmado'`;
+  connection.query(query, [id], (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: "Error al obtener las cotizaciones confirmadas del transportista logueado" });
+    }
+    res.json(results);
+  });
+}
+
+module.exports = { getTransportistas, getMisCotizacionesPendientes, getMisCotizacionesConfirmadas };
