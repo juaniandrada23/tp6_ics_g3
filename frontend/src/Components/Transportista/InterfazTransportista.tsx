@@ -4,12 +4,7 @@ import usePedidosTransportista from "../../Hooks/usePedidosTranspotista";
 
 const InterfazTransportista: React.FC = () => {
   const { user, logout } = useAuth();
-  const {
-    cotizacionesTransportistaLogueadoPendiente,
-    cotizacionesTransportistaLogueadoConfirmado,
-    obtenerCotizacionesPendientes,
-    obtenerCotizacionesConfirmadas,
-  } = usePedidosTransportista(user?.id ?? 0);
+  const { cotizacionesTransportistaLogueadoPendiente, cotizacionesTransportistaLogueadoConfirmado, obtenerCotizacionesPendientes, obtenerCotizacionesConfirmadas } = usePedidosTransportista(user?.id ?? 0);
 
   useEffect(() => {
     const intervalId = setInterval(async () => {
